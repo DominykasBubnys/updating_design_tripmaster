@@ -1,0 +1,64 @@
+.alert{
+    width: 30vw;
+    background-color: aliceblue;
+    border-radius: 5px;
+    text-align: center;
+    padding: 30px;
+}
+
+
+.alert_header h1, .alert_message{
+    font-size: 1.5rem;
+    color: rgba(125, 215, 111, 1);
+}
+
+.alert_logo img{
+    margin: 8px auto;
+    width: 3rem;
+}
+
+
+.alert_message{
+    color: rgba(112, 112, 112, 1);
+}
+
+.alert_controllers{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.alert_controllers .alert_btn{
+    width: 30%;
+    margin-top: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    .alert{
+        width: 50vw;
+    }
+}
+  
+
+@media screen and (max-width: 800px) {
+    .alert{
+        width: 72vw;
+    }
+}
+  
+
+@media screen and (max-width: 550px) {
+
+    .alert{
+        width: 82vw;
+        padding: 15px;
+    }
+}
+  
+@media screen and (max-width: 450px) {
+
+    .alert{
+        width: 92vw;
+        padding: 5px;
+    }
+}

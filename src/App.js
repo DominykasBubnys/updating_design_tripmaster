@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import Routing from './routers';
+import React from "react";
+import {AuthContext} from "./contextAPI/AuthContext";
+import { useState, useCallback } from 'react'
+import MainNavigation from "./components/navigation";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [authenticatedUser, setAuthenticatedUser] = useState();
+
+  const login = useCallback((user) => {
+    if(!user.status === "success"){
+      setIsLoggedIn(false);
+      return;
+    }
+    const {response, token} = user.data;
+
+    setIsLoggedIn(true)
+    setAuthenticatedUser({data: response, token: token})
+  }, [])
+
+  const update = useCallback(user => {
+    const {data, token} = user;
+
+    if(!data || !token){
+      setIsLoggedIn(false);
+      return;
+    }
+    setAuthenticatedUser({data, token})
+    setIsLoggedIn(true)
+  }, [])
+
+  const logout = useCallback(() => {
+    setAuthenticatedUser(null);
+    setIsLoggedIn(false)
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <AuthContext.Provider value={{ isLoggedIn, authenticatedUser, login, logout, update }}>
+      <MainNavigation />
+      <Routing />
+      <ToastContainer />
+    </AuthContext.Provider>
+  )
 }
 
-export default App;
+export default App
